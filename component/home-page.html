@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+</head>
+<body>
+    
+    <div>
+        <label>Tên</label><br>
+        <input id="name" class="input-wrapper"><br>
+        
+        <label>Email</label><br>
+        <input id="email" class="input-wrapper"><br>
+
+        <label>Mật Khẩu</label><br>
+        <input id="password" class="input-wrapper"><br>
+        <button onclick="clickMe()">Click Me</button>
+    </div>
+</body>
+</html>
+
+
+<script>
+
+    function clickMe () {
+        // Tìm ra phần tử có id = name
+        let nameElement = document.getElementById("name"); // elementInput = HTMLElement (Object)
+        let nameInput = nameElement.value;
+
+        let emailInput = document.getElementById("email").value;
+
+        let passwordInput =  document.getElementById("password").value;
+        
+        console.log("Name: " + nameInput);
+        console.log("Email: " + emailInput)
+        console.log("Pass: " + passwordInput)
+    }
+    
+
+
+</script>
+
+
+<!-- Ngôn ngữ javascript: viết tắt JS.
+Framework: là 1 thư viện được viết bằng js
+1 số framework của js: 
+
+Client:  - web: angular, vuejs, react js (React)
+        - mobile: react native (React) android - ios
+
+Server: 
+        Nodejs, experes
+        java: web, backend, mobile (Android)
+
+ Dev Front-end (FE)
+ Dev Back-end (BE)
+ Dev Full-stack 
+ Client -  API   - Server
+
+Document Object Model
+
+DOM API:
+
+Dom được tạo nên từ 3 thành phần chính:
+  - phần tử (element): gồm tết cả các thẻ tag
+  - thuộc tính (attribute): class, id, type, style...
+  - nội dung (content): là những dòng text
+
+
+ int, string, boolance, double, float (Kiểu dữ liệu nguyên thủy)
+
+ [], {} kiểu dữ liệu đối tượng -->

@@ -1,0 +1,55 @@
+.container {
+
+    margin-left: 500px;
+    margin-top: 100px;
+}
+
+.box-wrapper {
+    text-align: center;
+
+    border: 1px solid #d5d2d2;
+    width: 500px;
+}
+
+.div-title {
+    font-weight: 600;
+    color: white;
+    background-color: #FF8080;
+    padding-bottom: 13px;
+    padding-top: 13px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.form-content {
+    padding: 10px 30px 20px 30px;
+}
+
+
+
+.input-wrapper {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 97%;
+    height: 25px;
+    border: 1px solid #c9c9c9;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-wrapper {
+    border-radius: 5px;
+    padding: 7px;
+    border: 1px solid #FF8080;
+    background-color:#FF8080;
+    color: white;
+}
+
+.mr-bot-10 {
+    margin-bottom: 10px;
+}
+.form-content label{
+    float: left;
+}
