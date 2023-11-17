@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="tuananh.css">
 </head>
 <body>
-    <div>
+    <!-- <div>
         <div class="container" >
             <div class="box-wrapper">
                 <div class="div-title"> Đăng kí tài khoản</div>
@@ -36,32 +36,49 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+    <label>So a</label><br>
+    <input class="input-wrapper" id="a"><br>
+
+    <label>so b</label><br>
+    <input class="input-wrapper" id="b"><br>
+    <button onclick="check()">click me</button>
 </body>
 <script>
+    let a = document.getElementById("a");
+    let b = document.getElementById("b");
+   function check(){
+   console.log('a',a.value);
+   console.log('b',b.value);
+   if(a.value.length > b.value.length){
+        console.log('a chieu dai');
+   }else{
+    console.log('a chieu rong');
+   }
+   }
 
-    function createAccount () {
+    // function createAccount () {
         
-        let nameElement = document.getElementById("name"); 
-        let nameInput = nameElement.value;
+    //     let nameElement = document.getElementById("name"); 
+    //     let nameInput = nameElement.value;
 
-        let emailInput = document.getElementById("email").value;
+    //     let emailInput = document.getElementById("email").value;
 
-        let passwordInput =  document.getElementById("password").value;
+    //     let passwordInput =  document.getElementById("password").value;
 
-        let confirmInput =  document.getElementById("confirm").value;
+    //     let confirmInput =  document.getElementById("confirm").value;
 
-        let phoneInput =  document.getElementById("phone").value;
+    //     let phoneInput =  document.getElementById("phone").value;
 
-        let addressInput =  document.getElementById("address").value;
+    //     let addressInput =  document.getElementById("address").value;
         
-        console.log("Name: " + nameInput);
-        console.log("Email: " + emailInput)
-        console.log("Pass: " + passwordInput)
-        console.log("Confirmpass: " + confirmInput);
-        console.log("Phone: " + phoneInput);
-        console.log("Address: " + addressInput);
-    }
+    //     console.log("Name: " + nameInput);
+    //     console.log("Email: " + emailInput)
+    //     console.log("Pass: " + passwordInput)
+    //     console.log("Confirmpass: " + confirmInput);
+    //     console.log("Phone: " + phoneInput);
+    //     console.log("Address: " + addressInput);
+    // }
     
 
 
