@@ -4,10 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vượng Demo</title>
+    <link rel="stylesheet" href="vuong.css">
 </head>
 <body>
     <div>
-       Vượng de
+        <button onclick="onClick ()">click me</button>
     </div>
 </body>
-</html>
+</html> 
+
+
+<script>
+
+    function onClick () {
+    
+    let chieuDai = 29;
+    let chieuRong = 31;
+
+    if (chieuDai > chieuRong) {
+    console.log("Chiều dài  lớn hơn chiều rộng");
+    } else if (chieuDai < chieuRong) {
+    console.log("Chiều rộng lớn hơn chiều dài");
+    } else {
+    console.log("Chiều dài bằng chiều rộng");
+    }
+    }
+</script>
