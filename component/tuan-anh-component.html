@@ -45,16 +45,23 @@
     <button onclick="check()">click me</button>
 </body>
 <script>
-    let a = document.getElementById("a");
-    let b = document.getElementById("b");
+    let a = document.getElementById("a"); // string
+    let b = document.getElementById("b"); // string
+    
    function check(){
-   console.log('a',a.value);
-   console.log('b',b.value);
-   if(a.value.length > b.value.length){
-        console.log('a chieu dai');
-   }else{
-    console.log('a chieu rong');
-   }
+    let convertA = Number(a.value);
+    let convertB = Number(b.value); 
+    if (convertA > convertB) {
+        console.log("a là số lớn");
+    } else {
+        console.log("b là số lớn");
+    }
+
+    // if(a.value.length > b.value.length){
+    //         console.log('a chieu dai');
+    // }else{
+    //     console.log('a chieu rong');
+    // }
    }
 
     // function createAccount () {
