@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="tuananh.css">
 </head>
 <body>
-    <div>
+    <!-- <div>
         <div class="container" >
             <div class="box-wrapper">
                 <div class="div-title"> Đăng kí tài khoản</div>
@@ -36,6 +36,58 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+    <label>So a</label><br>
+    <input class="input-wrapper" id="a"><br>
+
+    <label>so b</label><br>
+    <input class="input-wrapper" id="b"><br>
+    <button onclick="check()">click me</button>
 </body>
+<script>
+    let a = document.getElementById("a"); // string
+    let b = document.getElementById("b"); // string
+    
+   function check(){
+    let convertA = Number(a.value);
+    let convertB = Number(b.value); 
+    if (convertA > convertB) {
+        console.log("a là số lớn");
+    } else {
+        console.log("b là số lớn");
+    }
+
+    // if(a.value.length > b.value.length){
+    //         console.log('a chieu dai');
+    // }else{
+    //     console.log('a chieu rong');
+    // }
+   }
+
+    // function createAccount () {
+        
+    //     let nameElement = document.getElementById("name"); 
+    //     let nameInput = nameElement.value;
+
+    //     let emailInput = document.getElementById("email").value;
+
+    //     let passwordInput =  document.getElementById("password").value;
+
+    //     let confirmInput =  document.getElementById("confirm").value;
+
+    //     let phoneInput =  document.getElementById("phone").value;
+
+    //     let addressInput =  document.getElementById("address").value;
+        
+    //     console.log("Name: " + nameInput);
+    //     console.log("Email: " + emailInput)
+    //     console.log("Pass: " + passwordInput)
+    //     console.log("Confirmpass: " + confirmInput);
+    //     console.log("Phone: " + phoneInput);
+    //     console.log("Address: " + addressInput);
+    // }
+    
+
+
+</script>
 </html>
