@@ -7,39 +7,8 @@
     <title>Minh Demo</title>
 </head>
 <body>
-    <div class="cover">
-        <div class="first-part">
-            <div class="title"> Đăng kí tài khoản</div>
-            <div class="form-content">
-                <label>Tên</label>
-                <br>
-                <input id="name" class="input-wrapper">
-                <br>
-                <label>Email</label>
-                <br>
-                <input id="email" class="input-wrapper">
-                <br>
-                <label>Mật khẩu</label>
-                <br>
-                <input id="password" class="input-wrapper">
-                <br>
-                <label>Xác nhận mật khẩu</label>
-                <br>
-                <input id="confirm" class="input-wrapper">
-                <br>
-                <label>Số điện thoại</label>
-                <br>
-                <input id="phone" class="input-wrapper">
-                <br>
-                <label>Nhập địa chỉ</label>
-                <br>
-                <input id="address" class="input-wrapper">
-                <br>
-                <div class="text-center end">
-                    <button onclick="createAccount()" class="bt-wrapper">Tạo tài khoản</button>
-                </div>
-            </div>
-        </div>
+    <div>
+        <button onclick="createAccount()">click me</button>
     </div>
 </body>
 </html>
@@ -48,25 +17,16 @@
 
     function createAccount () {
         
-        let nameElement = document.getElementById("name"); 
-        let nameInput = nameElement.value;
+    let chieuDai = 5;
+    let chieuRong = 5;
 
-        let emailInput = document.getElementById("email").value;
-
-        let passwordInput =  document.getElementById("password").value;
-
-        let confirmInput =  document.getElementById("confirm").value;
-
-        let phoneInput =  document.getElementById("phone").value;
-
-        let addressInput =  document.getElementById("address").value;
-        
-        console.log("Name: " + nameInput);
-        console.log("Email: " + emailInput)
-        console.log("Pass: " + passwordInput)
-        console.log("Confirmpass: " + confirmInput);
-        console.log("Phone: " + phoneInput);
-        console.log("Address: " + addressInput);
+    if (chieuDai > chieuRong) {
+    console.log("Chiều dài của hình chữ nhật lớn hơn chiều rộng.");
+    } else if (chieuDai < chieuRong) {
+    console.log("Chiều rộng của hình chữ nhật lớn hơn chiều dài.");
+    } else {
+    console.log("Chiều dài và chiều rộng của hình chữ nhật bằng nhau.");
+    }
     }
     
 
