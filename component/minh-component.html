@@ -7,28 +7,25 @@
     <title>Minh Demo</title>
 </head>
 <body>
-    <div>
-        <button onclick="createAccount()">click me</button>
-    </div>
+    <button onclick="onClick ()">nhap xuat</button>
 </body>
 </html>
 
 <script>
+    function onClick (){
 
-    function createAccount () {
-        
-    let chieuDai = 5;
-    let chieuRong = 5;
+    const listNumber = [10, 2, 50, 100, 20, 15, 31, 9]
 
-    if (chieuDai > chieuRong) {
-    console.log("Chiều dài của hình chữ nhật lớn hơn chiều rộng.");
-    } else if (chieuDai < chieuRong) {
-    console.log("Chiều rộng của hình chữ nhật lớn hơn chiều dài.");
-    } else {
-    console.log("Chiều dài và chiều rộng của hình chữ nhật bằng nhau.");
+    for (let i = 0; i < listNumber.length; i++){
+        for (let j = i + 1; j < listNumber.length; j++){
+            if(listNumber[i] > listNumber[j]){
+                let temp = listNumber[i];
+                listNumber[i] = listNumber[j];
+                listNumber[j] = temp;
+            }
+        }
     }
+    console.log(listNumber);
     }
-    
-
-
 </script>
+
