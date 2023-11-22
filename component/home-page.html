@@ -117,32 +117,18 @@
 
   
 
-    function clickMe () {
-      const listString = [20, 2111, 413, 114, 87885];
-      //vòng lặp (loop)
-      let i = 10;
-      listString.length = 5 
-      
-      for (let index = 0; index < listString.length; index++) {
-        const element = listString[index];
-        console.log(element);
-      }
+  function clickMe () {
 
-
-      listObjec.forEach(element => {
-        console.log(element);
-      });
-
-      do {
-        console.log('Chạy vào vòng do - while'); // i =11
-        i++; 
-      } while (i<12);
-
-      while (i< 12) {
-       console.log('Chạy vào vòng while'); 
-       i++
-      }
+    const c = {
+      name: "Nam", 
+      age: 30,
     }
+    // ES6;
+    const {name, age} = c;
+    console.log("Tên tôi là " + name + ".Tôi " + age + "tuổi");
+    
+    // console.log(`Tên tôi là ${c.name}.Tôi ${c.age} tuổi`);
+  }
     
     
 
@@ -177,4 +163,57 @@ Dom được tạo nên từ 3 thành phần chính:
 
  int, string, boolance, double, float (Kiểu dữ liệu nguyên thủy)
 
- [], {} kiểu dữ liệu đối tượng -->
+ [], {} kiểu dữ liệu đối tượng 
+
+
+============ Các chuẩn viết code của JS ====================
+
+ES5 : 2015: khai báo biến bằng var
+ES6 : 2016: let và const
+
+============================================================
+
+============ Khác nhau giữa var và let ======================
+var: có cơ chế hoisting (khai báo các biến và hàm lên đầu scope trước khi code được thực thi)
+let: không có cơ chế hoisting, phạm vi của biến được bắt đầu từ lúc biến được khởi tạo
+
+=============================================================
+
+============Khai báo biến bằng kiểu const ====================
+  - với kiểu dữ liệu nguyên thủy: không thể thay đổi giá trị của biến
+  - với kiểu dữ liệu đối tượng: không thể gán lại bằng đối tượng khác nhưng cho phép thay đổi giá trị của đối tượng
+  Ví dụ:
+    const c = {
+      name: "Nam", 
+      age: 30,
+    }
+    // c là đối tượng
+    // name và age gọi là thuộc tính của object, "Nam" và 30 là giá trị của thuộc tính
+
+    const d = {
+      nameeeeeee: 'Minh',
+      ageeeeee: 30
+    }
+    //không thể gán c = d
+    // được phép thay đổi giá trị của 2 thuộc tính name và age
+    c.name = 'Minh';
+    c.age = 290;
+
+===============================================================
+
+================ CÁC CÂU HỎI PHỎNG VẤN THƯỜNG GẶP ==================
+
+1.Phân biệt 3 cách khai báo biến trong js: var, let, const? 
+Có thay đổi được giá trị của thuộc tính bên trong object khi object đó được khai báo bằng const hay không?
+2.Phân biệt so sánh  == và ===
+3.Phân biệt i++ và ++i
+4.Hãy nêu các kiểu dữ liệu trong js
+5.Hãy phân biệt ES5 và ES6
+
+====================================================================
+-->
+
+
+
+
+
