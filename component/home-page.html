@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <section class="vh-100" style="background-color: #eee;">
+    <!-- <section class="vh-100" style="background-color: #eee;">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col col-lg-9 col-xl-7">
@@ -77,40 +79,60 @@
             </div>
           </div>
         </div>
-      </section>
-    <div>
-        <label>Tên</label><br>
-        <input id="name" class="input-wrapper"><br>
-        
-        <label>Email</label><br>
-        <input id="email" class="input-wrapper"><br>
-
-        <label>Mật Khẩu</label><br>
-        <input id="password" class="input-wrapper"><br>
-        <button onclick="clickMe()">Click Me</button>
-    </div>
+      </section> -->
+      <button onclick="clickMe()">ClickMe</button>
 </body>
 </html>
 
 
 <script>
 
-    function clickMe () {
-        // Tìm ra phần tử có id = name
-        // let nameElement = document.getElementById("name"); // elementInput = HTMLElement (Object)
-        // let nameInput = nameElement.value;
+  const person = {
+    firstName: "John",
+    lastName: "Doe",
+    age: 50,
+    eyeColor: "blue"
+  };
 
-        // let emailInput = document.getElementById("email").value;
+  const listData = [
+    "aaaa", "bbbb", "cccccc"
+  ]
+  const listObjec = [
+    {name: "Nam", age: 11, email: "namnd@gmail"},
+    {name: "Nam", age: 11, email: "namnd@gmail"},
+    {name: "Nam", age: 11, email: "namnd@gmail"},
+    {name: "Nam", age: 11, email: "namnd@gmail"},
+  ]
 
-        // let passwordInput =  document.getElementById("password").value;
+  const objectData = {
+    ten: "",
+    tuoi: "",
+    danhSachSinhVien: [
+      {name: "Nam", age: 11, email: "namnd@gmail", aaa: []},
+      {name: "Nam", age: 11, email: "namnd@gmail"},
+    ]
+  }
+  const a = {}; // mảng rỗng
+  const b = []; // phần tử rỗng
 
+  
+
+  function clickMe () {
+
+    const c = {
+      name: "Nam", 
+      age: 30,
     }
+    // ES6;
+    const {name, age} = c;
+    console.log("Tên tôi là " + name + ".Tôi " + age + "tuổi");
+    
+    // console.log(`Tên tôi là ${c.name}.Tôi ${c.age} tuổi`);
+  }
+    
     
 
-
 </script>
-
--add, commit, pull, push, merge
 
 
 <!-- Ngôn ngữ javascript: viết tắt JS.
@@ -141,4 +163,57 @@ Dom được tạo nên từ 3 thành phần chính:
 
  int, string, boolance, double, float (Kiểu dữ liệu nguyên thủy)
 
- [], {} kiểu dữ liệu đối tượng -->
+ [], {} kiểu dữ liệu đối tượng 
+
+
+============ Các chuẩn viết code của JS ====================
+
+ES5 : 2015: khai báo biến bằng var
+ES6 : 2016: let và const
+
+============================================================
+
+============ Khác nhau giữa var và let ======================
+var: có cơ chế hoisting (khai báo các biến và hàm lên đầu scope trước khi code được thực thi)
+let: không có cơ chế hoisting, phạm vi của biến được bắt đầu từ lúc biến được khởi tạo
+
+=============================================================
+
+============Khai báo biến bằng kiểu const ====================
+  - với kiểu dữ liệu nguyên thủy: không thể thay đổi giá trị của biến
+  - với kiểu dữ liệu đối tượng: không thể gán lại bằng đối tượng khác nhưng cho phép thay đổi giá trị của đối tượng
+  Ví dụ:
+    const c = {
+      name: "Nam", 
+      age: 30,
+    }
+    // c là đối tượng
+    // name và age gọi là thuộc tính của object, "Nam" và 30 là giá trị của thuộc tính
+
+    const d = {
+      nameeeeeee: 'Minh',
+      ageeeeee: 30
+    }
+    //không thể gán c = d
+    // được phép thay đổi giá trị của 2 thuộc tính name và age
+    c.name = 'Minh';
+    c.age = 290;
+
+===============================================================
+
+================ CÁC CÂU HỎI PHỎNG VẤN THƯỜNG GẶP ==================
+
+1.Phân biệt 3 cách khai báo biến trong js: var, let, const? 
+Có thay đổi được giá trị của thuộc tính bên trong object khi object đó được khai báo bằng const hay không?
+2.Phân biệt so sánh  == và ===
+3.Phân biệt i++ và ++i
+4.Hãy nêu các kiểu dữ liệu trong js
+5.Hãy phân biệt ES5 và ES6
+
+====================================================================
+-->
+
+
+
+
+
