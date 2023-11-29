@@ -17,23 +17,20 @@
           <div class="card rounded-3">
             <div class="card-body p-4">
 
-              <h4 class="text-center my-3 pb-3">To Do App By NamND16</h4>
+              <h4 class="text-center my-3 pb-3">To Do App</h4>
 
               <div class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
                 <div class="col-12">
-                  <div class="form-outline">
-                    <input type="text" id="form1" class="form-control" />
-                    <label class="form-label" for="form1">Enter a task here</label>
-                  </div>
+                  <input type="text" id="form1" class="form-control" placeholder="Enter a task here" />
                 </div>
 
                 <div class="col-12">
                   <button class="btn btn-primary" onclick="addTask()">Save</button>
                 </div>
 
-                <div class="col-12">
+                <!-- <div class="col-12">
                   <button type="submit" class="btn btn-warning">Get tasks</button>
-                </div>
+                </div> -->
               </div>
 
               <table class="table mb-4" id="the-table">
@@ -102,7 +99,7 @@
     let table = document.getElementById("the-table");
 
     // Tạo một tbody mới
-    let tbody = table.querySelector("tbody") || document.createElement("tbody");
+    let tbody =  document.createElement("tbody");
 
     // Lặp qua danh sách dữ liệu và thêm từng dòng vào tbody
     for (let i = 0; i < listData.length; i++) {
@@ -131,9 +128,10 @@
     }
 
     // Nếu tbody chưa tồn tại, thêm tbody vào table
-    if (!table.querySelector("tbody")) {
-      table.appendChild(tbody);
-    }
+    // if (!table.querySelector("tbody")) {
+    //   table.appendChild(tbody);
+    // }
+    table.appendChild(tbody);
   }
   initTable();
 
