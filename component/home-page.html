@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="col-12">
-                  <button class="btn btn-primary" onclick="addTask()">Save</button>
+                  <button class="btn btn-primary" onclick="handleSave()">Save</button>
                 </div>
 
                 <!-- <div class="col-12">
@@ -43,35 +43,6 @@
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
-                <!-- <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Buy groceries for next week</td>
-                        <td>In progress</td>
-                        <td>
-                          <button type="submit" class="btn btn-danger">Delete</button>
-                          <button type="submit" class="btn btn-success ms-1">Finished</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Renew car insurance</td>
-                        <td>In progress</td>
-                        <td>
-                          <button type="submit" class="btn btn-danger">Delete</button>
-                          <button type="submit" class="btn btn-success ms-1">Finished</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Sign up for online course</td>
-                        <td>In progress</td>
-                        <td>
-                          <button type="submit" class="btn btn-danger">Delete</button>
-                          <button type="submit" class="btn btn-success ms-1">Finished</button>
-                        </td>
-                      </tr>
-                    </tbody> -->
               </table>
 
             </div>
@@ -88,7 +59,7 @@
 <script>
 
   let listTodo = [
-    { number: 1, todo: "Buy groceries for next week Buy groceries for next week Buy groceries for next week Buy groceries for next week", status: "In progress" },
+    { number: 1, todo: "Buy groceries for 1", status: "In progress" },
     // Thêm các phần tử khác tương tự
   ];
   const STATUS_TYPE = {
@@ -111,7 +82,7 @@
     // Lặp qua danh sách dữ liệu và thêm từng dòng vào tbody
     for (let i = 0; i < listTodo.length; i++) {
       const itemmm = listTodo[i]
-      let rowData = listTodo[i];
+      let rowData = listTodo[i]; // rowData = { number: 1, todo: "Buy groceries for 1", status: "In progress" }
 
       // Tạo một dòng mới
       let row = tbody.insertRow();
@@ -139,7 +110,8 @@
         `<button type="button" class="btn btn-danger" onclick="handleDelete(${i})">Delete</button>` +
         `<button type="button" class="btn btn-warning ms-1" onclick="handlePending(${i})">Pending</button>` +
         `<button type="button" class="btn btn-secondary ms-1" onclick="handleCancel(${i})">Cancel</button>` +
-        `<button type="button" class="btn btn-success ms-1" onclick="handleFinished(${i})">Finished</button>`;
+        `<button type="button" class="btn btn-success ms-1" onclick="handleFinished(${i})">Finished</button>` +
+        `<button type="button" class="btn btn-info ms-1" onclick="handleShowDetail()">Detail</button>`;
         cellActions.classList.add("align-middle");
     }
 
@@ -168,14 +140,28 @@
     let itemRow = listTodo[indexItem];
     console.log('On Click Button Cancel with item = {}: ', itemRow);
   }
-  const addTask = () => {
-    const taskObj = { number: listTodo.length + 1, todo: "Buy groceries for next wee2k", status: "In progress" };
-    listTodo.push(taskObj);
-    let table = document.getElementById("the-table");
+  const handleSave = () => {
+    let inputTaskDom = document.getElementById("form1");
+    let inputVal = inputTaskDom.value;
+    if (inputVal.trim() === '') {
+      alert("Vui lòng nhập thông tin task!")
+    };
+    const taskObject = {
+      number: listTodo.length + 1,
+      todo: inputVal,
+      status: "In progress",
+    }
 
+    listTodo.push(taskObject);
+    // Tìm đến table và tìm đến thằng thẻ tbody
+    let table = document.getElementById("the-table");
     let tbody = table.querySelector("tbody")
-    tbody.remove();
-    initTable()
+    tbody.remove(); 
+    initTable();
+  }
+
+  const handleShowDetail = () => {
+    console.log('Show detail');
   }
 
 </script>
@@ -246,6 +232,14 @@ let: không có cơ chế hoisting, phạm vi của biến được bắt đầu
     c.age = 290;
 
 ===============================================================
+===========================HTTP Requesr====================================
+  // FE -> api -> BE ->api->FE
+  // HTTP Request: 
+   -get: lấy dữ liệu về
+   -post: đẩy dữ liệu lên server
+   -put: update dữ liệu trong DB;
+   -delete: xóa dữ liệu trong DB
+=================================================================
 
 ================ CÁC CÂU HỎI PHỎNG VẤN THƯỜNG GẶP ==================
 
@@ -257,4 +251,5 @@ Có thay đổi được giá trị của thuộc tính bên trong object khi ob
 5.Hãy phân biệt ES5 và ES6
 
 ====================================================================
+
 -->
