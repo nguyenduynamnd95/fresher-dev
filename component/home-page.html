@@ -45,6 +45,36 @@
                 </thead>
               </table>
 
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Todo Task</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="d-flex">
+                        <div class="fw-bold detail-title">Number:</div>
+                        <div id="detail-number-val"></div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="fw-bold detail-title">Todo Name:</div>
+                        <div id="detail-todoName-val"></div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="fw-bold detail-title">Status:</div>
+                        <div id="detail-status-val"></div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -59,7 +89,9 @@
 <script>
 
   let listTodo = [
-    { number: 1, todo: "Buy groceries for 1", status: "In progress" },
+    { number: 1, todo: "Buy groceries for 1", status: "In progress"},
+    { number: 2, todo: "Buy groceries for 2", status: "In progress"},
+    { number: 3, todo: "Buy groceries for 3", status: "In progress"},
     // Thêm các phần tử khác tương tự
   ];
   const STATUS_TYPE = {
@@ -68,6 +100,7 @@
     CANCEL: "Cancel",
     PENDING: "Pending"
   }
+
 
   /**
    * Hàm khởi tạo table khi load trang
@@ -96,7 +129,7 @@
       let cellTodo = row.insertCell(1);
       cellTodo.innerHTML = rowData.todo;
       cellTodo.classList.add("align-middle");
-       cellTodo.classList.add("todo-item-wrapper")
+      cellTodo.classList.add("todo-item-wrapper")
 
       // Thêm cột status
       let cellStatus = row.insertCell(2);
@@ -111,8 +144,8 @@
         `<button type="button" class="btn btn-warning ms-1" onclick="handlePending(${i})">Pending</button>` +
         `<button type="button" class="btn btn-secondary ms-1" onclick="handleCancel(${i})">Cancel</button>` +
         `<button type="button" class="btn btn-success ms-1" onclick="handleFinished(${i})">Finished</button>` +
-        `<button type="button" class="btn btn-info ms-1" onclick="handleShowDetail()">Detail</button>`;
-        cellActions.classList.add("align-middle");
+        `<button type="button" class="btn btn-info ms-1" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="handleShowDetail(${i})">Detail</button>`;
+      cellActions.classList.add("align-middle");
     }
 
     // Nếu tbody chưa tồn tại, thêm tbody vào table
@@ -125,9 +158,20 @@
 
 
   const handleDelete = (indexItem) => {
-    let itemRow = listTodo[indexItem];
-    console.log('On Click Button Delete with item = {}: ', itemRow);
+    // filter (lọc) // index (tồn tại duy nhất)
+    let result = listTodo.filter((item, index) => indexItem !== index); // hàm filter lúc nào cũng sẽ trả về 1 mảng
+    listTodo = result;
+
+    // Tìm đến table và tìm đến thằng thẻ tbody
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody")
+    tbody.remove();
+
+    // Dùng hàm này để vẽ table
+    initTable();
+
   }
+
   const handleFinished = (indexItem) => {
     let itemRow = listTodo[indexItem];
     console.log('On Click Button Finished with item = {}: ', itemRow)
@@ -144,7 +188,8 @@
     let inputTaskDom = document.getElementById("form1");
     let inputVal = inputTaskDom.value;
     if (inputVal.trim() === '') {
-      alert("Vui lòng nhập thông tin task!")
+      alert("Vui lòng nhập thông tin task!");
+      return;
     };
     const taskObject = {
       number: listTodo.length + 1,
@@ -156,15 +201,19 @@
     // Tìm đến table và tìm đến thằng thẻ tbody
     let table = document.getElementById("the-table");
     let tbody = table.querySelector("tbody")
-    tbody.remove(); 
+    tbody.remove();
     initTable();
   }
 
-  const handleShowDetail = () => {
-    console.log('Show detail');
+  const handleShowDetail = (indexItem) => {
+    let itemRow = listTodo[indexItem];
+    document.getElementById("detail-number-val").innerHTML = itemRow.number ;
+    document.getElementById("detail-todoName-val").innerHTML = itemRow.todo;
+    document.getElementById("detail-status-val").innerHTML = itemRow.status;
   }
 
-</script>
+</script> 
+
 
 
 <!-- Ngôn ngữ javascript: viết tắt JS.
@@ -196,6 +245,10 @@ Dom được tạo nên từ 3 thành phần chính:
  int, string, boolance, double, float (Kiểu dữ liệu nguyên thủy)
 
  [], {} kiểu dữ liệu đối tượng 
+
+
+============ Các kiểu xóa dữ liệu trong lập trình ================
+- Có 2 kiểu xóa: xóa vật lý (xóa cứng), xóa logic(xóa mềm)
 
 
 ============ Các chuẩn viết code của JS ====================

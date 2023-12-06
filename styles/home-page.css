@@ -1,3 +1,6 @@
 .todo-item-wrapper {
-    width: 400px;
+    width: 300px;
+}
+.detail-title {
+    width: 120px;
 }
