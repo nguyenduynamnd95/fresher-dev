@@ -5,151 +5,217 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="minh.css">
     <title>Minh Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <div>
-        <p>the string is:</p>
-        <p id="demo">abcdefminh</p>
-        <p id="demo1">ABCDEFMINH</p>
-        <button onclick="myFunction()">Try it</button>
-        <p id="demo1"></p>
-        <p id="demo2"></p>
+  <section class="vh-100" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12">
+          <div class="card rounded-3">
+            <div class="card-body p-4">
+
+              <h4 class="text-center my-3 pb-3">To Do App</h4>
+
+              <div class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                <div style="width: 400px;">
+                  <input type="text" id="form1" class="form-control" placeholder="Enter a task here" />
+                </div>
+
+                <div class="col-12">
+                  <button class="btn btn-primary" onclick="handleSave()">Save</button>
+                </div>
+              </div>
+
+              <table class="table mb-4" id="the-table">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Todo item</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+              </table>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Todo Task</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="d-flex">
+                        <div class="fw-bold detail-title">Number:</div>
+                        <div id="detail-number-val"></div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="fw-bold detail-title">Todo Name:</div>
+                        <div id="detail-todoName-val"></div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="fw-bold detail-title">Status:</div>
+                        <div id="detail-status-val"></div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 </body>
+
 </html>
 
+
 <script>
-    let text = "abcdefminh";
-    // document.getElementById("demo").innerHTML = text.length;
-    // document.getElementById("demo").innerHTML = text.slice(2,4);
-    // document.getElementById("demo").innerHTML = text.substring(3,6);
-    // document.getElementById("demo").innerHTML = text.substr(8,4);
-    // function myFunction() {
-    // document.getElementById("demo").innerHTML =text.replace("b","W3Schools");
+
+  let listTodo = [
+    { number: 1, todo: "Buy groceries for 1", status: "In progress"},
+    { number: 2, todo: "Buy groceries for 2", status: "In progress"},
+    { number: 3, todo: "Buy groceries for 3", status: "In progress"},
+  ];
+  const STATUS_TYPE = {
+    IN_PROGRESS: "In progress",
+    FINISHED: "Finished",
+    CANCEL: "Cancel",
+    PENDING: "Pending"
+  }
+   
+
+  /**
+   * Hàm khởi tạo table khi load trang
+  */
+  const initTable = () => {
+    // Lấy table theo ID
+    let table = document.getElementById("the-table");
+
+    // Tạo một tbody mới
+    let tbody = document.createElement("tbody");
+
+    // Lặp qua danh sách dữ liệu và thêm từng dòng vào tbody
+    for (let i = 0; i < listTodo.length; i++) {
+      const itemmm = listTodo[i]
+      let rowData = listTodo[i]; // rowData = { number: 1, todo: "Buy groceries for 1", status: "In progress" }
+
+      // Tạo một dòng mới
+      let row = tbody.insertRow();
+
+      // Thêm cột số
+      let cellNumber = row.insertCell(0);
+      cellNumber.innerHTML = i + 1;
+      cellNumber.classList.add("align-middle");
+
+      // Thêm cột todo
+      let cellTodo = row.insertCell(1);
+      cellTodo.innerHTML = rowData.todo;
+      cellTodo.classList.add("align-middle");
+       cellTodo.classList.add("todo-item-wrapper")
+
+      // Thêm cột status
+      let cellStatus = row.insertCell(2);
+      cellStatus.innerHTML = rowData.status;
+      cellStatus.classList.add("align-middle");
+      if (rowData.status === STATUS_TYPE.IN_PROGRESS) {
+        cellStatus.classList.add("in-progress");
+      }else if (rowData.status === STATUS_TYPE.PENDING) {
+        cellStatus.classList.add("pending");
+      }
+      // ${i}
+      // Thêm cột actions
+      let cellActions = row.insertCell(3);
+      // check ẩn hiện button tại đây
+      cellActions.innerHTML =
+        `<button type="button" class="btn btn-danger" onclick="handleDelete(${i})">Delete</button>` +
+        `<button type="button" class="btn btn-warning ms-1" onclick="handlePending(${i})">Pending</button>` +
+        `<button type="button" class="btn btn-secondary ms-1" onclick="handleCancel(${i})">Cancel</button>` +
+        `<button type="button" class="btn btn-success ms-1" onclick="handleFinished(${i})">Finished</button>` +
+        `<button type="button" class="btn btn-info ms-1" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="handleShowDetail(${i})">Detail</button>`;
+        cellActions.classList.add("align-middle");
+    }
+
+    // Nếu tbody chưa tồn tại, thêm tbody vào table
+    // if (!table.querySelector("tbody")) {
+    //   table.appendChild(tbody);
     // }
-    // text = text.replaceAll("c","nguyen");
-    // document.getElementById("demo").innerHTML = text;
-    // function myFunction() {
-    // document.getElementById("demo").innerHTML =text.toUpperCase();
-    // }
-    // function myFunction() {
-    // document.getElementById("demo1").innerHTML =text.toLowerCase();
-    // }
-    // let text1 = "a";
-    // let text2 = "b";
-    // let text3 = text1.concat(" ",text2);
-    // document.getElementById("demo").innerHTML = text3;
-    // let text1 = "     xinchao!!     ";
-    // let text2 = text1.trim();
-    // document.getElementById("demo").innerHTML ="Length text1 = " + text1.length + "<br>Length text2 = " + text2.length;
-    // let text1 = "     noproblem!!!     ";
-    // let text2 = text1.trimStart();
-    // document.getElementById("demo").innerHTML ="Length text1 = " + text1.length + "<br>Length text2 = " + text2.length;
-    // let text1 = "     xinncha!!!     ";
-    // let text2 = text1.trimEnd();
-    // document.getElementById("demo").innerHTML ="Length text1 = " + text1.length + "<br>Length text2 = " + text2.length;
-    // text = text.padStart(12,"3");
-    // document.getElementById("demo").innerHTML = text;
-    // text = text.padEnd(16,"0");
-    // document.getElementById("demo").innerHTML = text;
-    // document.getElementById("demo").innerHTML = text.charAt(2);
-    // document.getElementById("demo").innerHTML = text.charCodeAt(1);
-    // const myArray = text.split("c");
-    // document.getElementById("demo").innerHTML = myArray[1];
-    // let x = 367;
-    // document.getElementById("demo").innerHTML =
-    //     x.toString() + "<br>" +
-    //     (367).toString() + "<br>" +
-    //     (300 + 67).toString();
-    // let x = 5.334;
-    // document.getElementById("demo").innerHTML =
-    //     x.toExponential() + "<br>" +
-    //     x.toExponential(2) + "<br>" +
-    //     x.toExponential(4) + "<br>" +
-    //     x.toExponential(6);
-    // let x = 5.334;
-    // document.getElementById("demo").innerHTML =
-    //     x.toFixed(0) + "<br>" +
-    //     x.toFixed(2) + "<br>" +
-    //     x.toFixed(4) + "<br>" +
-    //     x.toFixed(6);
+    table.appendChild(tbody);
+  }
+  initTable();
 
-    // let x = 5.334;
-    // document.getElementById("demo").innerHTML =
-    //     x.toPrecision() + "<br>" +
-    //     x.toPrecision(2) + "<br>" +
-    //     x.toPrecision(4) + "<br>" +
-    //     x.toPrecision(6);  
 
-    // let x = 367;
-    // document.getElementById("demo").innerHTML =
-    //     x.valueOf() + "<br>" +
-    //     (367).valueOf() + "<br>" +
-    //     (300 + 67).valueOf();
+  const handleDelete = (indexItem) => {
+    // filter (lọc) // index (tồn tại duy nhất)
+    let result = listTodo.filter((item, index) => indexItem !== index); // hàm filter lúc nào cũng sẽ trả về 1 mảng
+    listTodo = result;
 
-    // const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-    // let size = fruits.length;
-    // document.getElementById("demo").innerHTML = size;
+    // Tìm đến table và tìm đến thằng thẻ tbody
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody")
+    tbody.remove();
 
-//     const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-//     document.getElementById("demo").innerHTML = fruits.toString();
+    // Dùng hàm này để vẽ table
+    initTable();
 
-//     const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-//     document.getElementById("demo").innerHTML = fruits;
+  }
+  const handleFinished = (indexItem) => {
+    listTodo[indexItem].status = STATUS_TYPE.FINISHED;
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody");
+    tbody.remove();
+    initTable();   
+  }
+  const handlePending = (indexItem) => {
+  listTodo[indexItem].status = STATUS_TYPE.PENDING;
 
-//     fruits.pop();
-//     document.getElementById("demo").innerHTML = fruits;
+  // Tìm đến table và tìm đến thẻ tbody
+  let table = document.getElementById("the-table");
+  let tbody = table.querySelector("tbody");
+  tbody.remove();
 
-//     const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-//     document.getElementById("demo").innerHTML = fruits;
+  // Dùng hàm này để vẽ lại table với trạng thái đã được cập nhật
+  initTable(); 
+  }
+  const handleCancel = (indexItem) => {
+    listTodo[indexItem].status = STATUS_TYPE.CANCEL;
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody");
+    tbody.remove();
+    initTable();   
+  }
+  const handleSave = () => {
+    let inputTaskDom = document.getElementById("form1");
+    let inputVal = inputTaskDom.value;
+    if (inputVal.trim() === '') {
+      alert("Vui lòng nhập thông tin task!");
+      return;
+    };
+    const taskObject = {
+      number: listTodo.length + 1,
+      todo: inputVal,
+      status: "In progress",
+    }
 
-//     fruits.push("Lemon");
-//     document.getElementById("demo").innerHTML = fruits;
+    listTodo.push(taskObject);
+    // Tìm đến table và tìm đến thằng thẻ tbody
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody")
+    tbody.remove(); 
+    initTable();
+  }
 
-//     const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-//     document.getElementById("demo").innerHTML = fruits;
-
-//     fruits.shift();
-//     document.getElementById("demo").innerHTML = fruits;
-
-//     const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-//     document.getElementById("demo").innerHTML = fruits;
-
-//     fruits.unshift("Apple");
-//     document.getElementById("demo").innerHTML = fruits;
-
-//     const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-//     document.getElementById("demo").innerHTML = fruits;
-
-//     fruits[fruits.length] = "Apple";
-//     document.getElementById("demo").innerHTML = fruits;
-
-//     const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-//     document.getElementById("demo").innerHTML =
-//         "The first fruit is: " + fruits[0];
-
-//     delete fruits[0];
-//     document.getElementById("demo").innerHTML =
-//         "The first fruit is: " + fruits[0];
-
-    // const myGirls = ["Linda", "Sophia"];
-    // const myBoys = ["Dany", "Nick", "Edith"];
-    // const myChildren = myGirls.concat(myBoys);
-    // document.getElementById("demo").innerHTML = myChildren;
-
-    // const myArr = [[2, 3], [4, 5], [6, 7]];
-    // const newArr = myArr.flat();
-    // document.getElementById("demo").innerHTML = newArr;
-
-    // const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-    // document.getElementById("demo").innerHTML = fruits;
-
-    // const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-    // document.getElementById("demo1").innerHTML = fruits;
-    // fruits.splice(2, 0, "Lemon", "Chesse");
-    // document.getElementById("demo2").innerHTML = fruits;
-
-    // const fruits = ["Cakes", "Candy", "Flowers", "Peaches"];
-    // const citrus = fruits.slice(1);
-    // document.getElementById("demo").innerHTML = fruits + "<br><br>" + citrus
+  const handleShowDetail = (indexItem) => {
+    let itemRow = listTodo[indexItem];
+    document.getElementById("detail-number-val").innerHTML = itemRow.number ;
+    document.getElementById("detail-todoName-val").innerHTML = itemRow.todo;
+    document.getElementById("detail-status-val").innerHTML = itemRow.status;
+  }
 </script>
