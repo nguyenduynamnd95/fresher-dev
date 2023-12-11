@@ -20,13 +20,25 @@
 
               <div class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
                 <div style="width: 400px;">
+
                   <input type="text" id="form1" class="form-control" placeholder="Enter a task here" />
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" onclick="handleSearch()">Search</button>
                 </div>
 
                 <div class="col-12">
                   <button class="btn btn-primary" onclick="handleSave()">Save</button>
                 </div>
+
               </div>
+              <select class="form-select" style="width: 300px; margin-bottom: 10px" aria-label="Choose Status" onchange="handleOnChangeStatus(event)">
+                <option value="All" selected>All</option>
+                <option value="In progress">In progress</option>
+                <option value="Pending">Pending</option>
+                <option value="Finished">Finished</option>
+                <option value="Cancel">Cancel</option>
+              </select>
 
               <table class="table mb-4" id="the-table">
                 <thead>
@@ -80,10 +92,16 @@
 <script>
 
   let listTodo = [
-    { number: 1, todo: "Buy groceries for 1", status: "In progress"},
-    { number: 2, todo: "Buy groceries for 2", status: "In progress"},
-    { number: 3, todo: "Buy groceries for 3", status: "In progress"},
+    { number: 1, todo: "Task 1", status: "In progress"},
+    { number: 2, todo: "Task 2", status: "In progress"},
+    { number: 3, todo: "Task 3", status: "In progress"},
+    { number: 4, todo: "Task 4", status: "Cancel"},
+    { number: 5, todo: "Task 5", status: "In progress"},
+    { number: 6, todo: "Task 6", status: "Cancel"},
+    { number: 7, todo: "Task 7", status: "In progress"},
+    { number: 8, todo: "Task 8", status: "Pending"},
   ];
+  let listTodoRaw = [...listTodo];
   const STATUS_TYPE = {
     IN_PROGRESS: "In progress",
     FINISHED: "Finished",
@@ -91,10 +109,6 @@
     PENDING: "Pending"
   }
    
-
-  /**
-   * Hàm khởi tạo table khi load trang
-  */
   const initTable = () => {
     // Lấy table theo ID
     let table = document.getElementById("the-table");
@@ -102,12 +116,11 @@
     // Tạo một tbody mới
     let tbody = document.createElement("tbody");
 
-    // Lặp qua danh sách dữ liệu và thêm từng dòng vào tbody
+  
     for (let i = 0; i < listTodo.length; i++) {
       const itemmm = listTodo[i]
-      let rowData = listTodo[i]; // rowData = { number: 1, todo: "Buy groceries for 1", status: "In progress" }
+      let rowData = listTodo[i]; 
 
-      // Tạo một dòng mới
       let row = tbody.insertRow();
 
       // Thêm cột số
@@ -115,13 +128,11 @@
       cellNumber.innerHTML = i + 1;
       cellNumber.classList.add("align-middle");
 
-      // Thêm cột todo
       let cellTodo = row.insertCell(1);
       cellTodo.innerHTML = rowData.todo;
       cellTodo.classList.add("align-middle");
        cellTodo.classList.add("todo-item-wrapper")
 
-      // Thêm cột status
       let cellStatus = row.insertCell(2);
       cellStatus.innerHTML = rowData.status;
       cellStatus.classList.add("align-middle");
@@ -130,10 +141,8 @@
       }else if (rowData.status === STATUS_TYPE.PENDING) {
         cellStatus.classList.add("pending");
       }
-      // ${i}
-      // Thêm cột actions
+
       let cellActions = row.insertCell(3);
-      // check ẩn hiện button tại đây
       cellActions.innerHTML =
         `<button type="button" class="btn btn-danger" onclick="handleDelete(${i})">Delete</button>` +
         `<button type="button" class="btn btn-warning ms-1" onclick="handlePending(${i})">Pending</button>` +
@@ -142,27 +151,19 @@
         `<button type="button" class="btn btn-info ms-1" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="handleShowDetail(${i})">Detail</button>`;
         cellActions.classList.add("align-middle");
     }
-
-    // Nếu tbody chưa tồn tại, thêm tbody vào table
-    // if (!table.querySelector("tbody")) {
-    //   table.appendChild(tbody);
-    // }
     table.appendChild(tbody);
   }
   initTable();
 
 
   const handleDelete = (indexItem) => {
-    // filter (lọc) // index (tồn tại duy nhất)
-    let result = listTodo.filter((item, index) => indexItem !== index); // hàm filter lúc nào cũng sẽ trả về 1 mảng
+    let result = listTodo.filter((item, index) => indexItem !== index);
     listTodo = result;
 
-    // Tìm đến table và tìm đến thằng thẻ tbody
     let table = document.getElementById("the-table");
     let tbody = table.querySelector("tbody")
     tbody.remove();
 
-    // Dùng hàm này để vẽ table
     initTable();
 
   }
@@ -176,12 +177,9 @@
   const handlePending = (indexItem) => {
   listTodo[indexItem].status = STATUS_TYPE.PENDING;
 
-  // Tìm đến table và tìm đến thẻ tbody
   let table = document.getElementById("the-table");
   let tbody = table.querySelector("tbody");
   tbody.remove();
-
-  // Dùng hàm này để vẽ lại table với trạng thái đã được cập nhật
   initTable(); 
   }
   const handleCancel = (indexItem) => {
@@ -205,7 +203,6 @@
     }
 
     listTodo.push(taskObject);
-    // Tìm đến table và tìm đến thằng thẻ tbody
     let table = document.getElementById("the-table");
     let tbody = table.querySelector("tbody")
     tbody.remove(); 
@@ -218,4 +215,34 @@
     document.getElementById("detail-todoName-val").innerHTML = itemRow.todo;
     document.getElementById("detail-status-val").innerHTML = itemRow.status;
   }
+  const handleOnChangeStatus = (event) => {
+    let selectedValue = event.target.value
+    
+    if (selectedValue === "All") {
+      listTodo = listTodoRaw;
+    } else {
+      let listFilter = listTodoRaw.filter(item => item.status === selectedValue);
+      listTodo = listFilter;
+    }
+
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody")
+    tbody.remove();
+    initTable();
+  }
+
+  const handleSearch = () => {
+
+    let searchInput = document.getElementById("form1").value.toLowerCase();
+    let filteredList = listTodoRaw.filter(item => {
+      return item.todo.toLowerCase().includes(searchInput);
+    });
+    listTodo = filteredList;
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody");
+    tbody.remove();
+    initTable();
+}
+document.getElementById("form1").addEventListener("input", handleSearch);
+ 
 </script>
