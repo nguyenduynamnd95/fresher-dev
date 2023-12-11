@@ -99,6 +99,7 @@
     { number: 8, todo: "Task 8", status: "In progress" },
     { number: 9, todo: "Task 9", status: "Cancel" },
   ];
+  let listTodoRaw = [...listTodo]; 
   const STATUS_TYPE = {
     IN_PROGRESS: "In progress",
     FINISHED: "Finished",
@@ -236,8 +237,9 @@
       return;
     };
     // Lọc tìm kiếm
+
     console.log(inputVal);
-    let filteredTodo = listRaw.filter(item =>
+    let filteredTodo = listTodoRaw.filter(item =>
       item.todo.toLowerCase().includes(inputVal.toLowerCase().trim())
     );
     listTodo = filteredTodo;
