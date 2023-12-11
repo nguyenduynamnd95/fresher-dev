@@ -22,19 +22,30 @@
 
               <div class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
                 <div style="width: 400px;">
+                  <!-- <input type="text" id="form1" class="form-control" placeholder="Enter a task here" oninput="handleChange(event)" /> -->
                   <input type="text" id="form1" class="form-control" placeholder="Enter a task here" />
                 </div>
 
                 <div class="col-12">
-                  <button class="btn btn-primary" onclick="handleSave()">Save</button>
+                  <button class="btn btn-primary" onclick="handleSearch()">Search</button>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-warning" onclick="handleSave()">Save</button>
                 </div>
 
                 <!-- <div class="col-12">
                   <button type="submit" class="btn btn-warning">Get tasks</button>
                 </div> -->
               </div>
+              <select class="form-select" style="width: 300px; margin-bottom: 10px" aria-label="Choose Status" onchange="handleOnChangeStatus(event)">
+                <option value="All" selected>All</option>
+                <option value="In progress">In progress</option>
+                <option value="Pending">Pending</option>
+                <option value="Finished">Finished</option>
+                <option value="Cancel">Cancel</option>
+              </select>
 
-              <table class="table mb-4" id="the-table">
+              <table class="table mb-4" id="the-table"> 
                 <thead>
                   <tr>
                     <th scope="col">No.</th>
@@ -89,11 +100,20 @@
 <script>
 
   let listTodo = [
-    { number: 1, todo: "Buy groceries for 1", status: "In progress"},
-    { number: 2, todo: "Buy groceries for 2", status: "In progress"},
-    { number: 3, todo: "Buy groceries for 3", status: "In progress"},
+    { number: 1, todo: "Task 1", status: "In progress"},
+    { number: 2, todo: "Task 2", status: "Finished"},
+    { number: 3, todo: "Task 3", status: "Finished"},
+    { number: 4, todo: "Task 4", status: "Cancel"},
+    { number: 5, todo: "Task 5", status: "In progress"},
+    { number: 6, todo: "Task 6", status: "Cancel"},
+    { number: 7, todo: "Task 7", status: "In progress"},
+    { number: 8, todo: "Task 8", status: "Pending"},
     // Thêm các phần tử khác tương tự
-  ];
+  ]; 
+
+
+  // let listTodoRaw = listTodo // shallow coppy 
+  let listTodoRaw = [...listTodo]; // deep coppy
   const STATUS_TYPE = {
     IN_PROGRESS: "In progress",
     FINISHED: "Finished",
@@ -211,6 +231,35 @@
     document.getElementById("detail-todoName-val").innerHTML = itemRow.todo;
     document.getElementById("detail-status-val").innerHTML = itemRow.status;
   }
+
+  const handleOnChangeStatus = (event) => {
+    // listTodo => 1 phần tử
+    // listTodoRaw => 8 phần tử
+    let selectedValue = event.target.value
+    
+    if (selectedValue === "All") {
+      listTodo = listTodoRaw;
+    } else {
+      let listFilter = listTodoRaw.filter(item => item.status === selectedValue);
+      listTodo = listFilter;
+    }
+
+    // Tìm đến table và tìm đến thằng thẻ tbody
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody")
+    tbody.remove();
+
+    // Dùng hàm này để vẽ table
+    initTable();
+  }
+
+  const handleSearch = () => {
+    console.log('Search');
+  }
+
+  // const handleChange = (event) => {
+  //   console.log(event.target.value);
+  // }
 
 </script> 
 
