@@ -2,26 +2,259 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tuấn Anh Demo</title>
-    <link rel="stylesheet" href="tuananh.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="minh.css">
+  <title>Tuấn Anh Demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
-   
-    <button onclick="myFunction()">Pending</button>
+  <section class="vh-100" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12">
+          <div class="card rounded-3">
+            <div class="card-body p-4">
 
-    <p id="demo">In progress</p
-    
+              <h4 class="text-center my-3 pb-3">To Do App</h4>
+
+              <div class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                <div style="width: 400px;">
+                  <input type="text" id="form1" class="form-control" placeholder="Enter a task here" />
+                </div>
+
+                <div class="col-12">
+                  <button class="btn btn-primary" onclick="handleSave()">Save</button>
+                </div>
+
+
+
+                <div class="col-12">
+                  <button class="btn btn-primary" onclick="handleSearch()">Search</button>
+                </div>
+
+              </div>
+
+              <table class="table mb-4" id="the-table">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Todo item</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+              </table>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Todo Task</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="d-flex">
+                        <div class="fw-bold detail-title">Number:</div>
+                        <div id="detail-number-val"></div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="fw-bold detail-title">Todo Name:</div>
+                        <div id="detail-todoName-val"></div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="fw-bold detail-title">Status:</div>
+                        <div id="detail-status-val"></div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </body>
-<script>
-    function myFunction() {
-  let text = document.getElementById("demo").innerHTML;
-  document.getElementById("demo").innerHTML =
-  text.replace("In progress","TuanAnh");
-}
-
-</script>
 
 </html>
+
+
+<script>
+
+  let listTodo = [
+    { number: 1, todo: "Task 1", status: "In progress" },
+    { number: 2, todo: "Task 2", status: "Finished" },
+    { number: 3, todo: "Task 3", status: "Cancel" },
+    { number: 4, todo: "Task 4", status: "Pending" },
+    { number: 5, todo: "Task 5", status: "Pending" },
+    { number: 6, todo: "Task 6", status: "Cancel" },
+    { number: 7, todo: "Task 7", status: "Finished" },
+    { number: 8, todo: "Task 8", status: "In progress" },
+    { number: 9, todo: "Task 9", status: "Cancel" },
+  ];
+  const STATUS_TYPE = {
+    IN_PROGRESS: "In progress",
+    FINISHED: "Finished",
+    CANCEL: "Cancel",
+    PENDING: "Pending"
+  }
+
+
+  /**
+   * Hàm khởi tạo table khi load trang
+  */
+  const initTable = () => {
+    // Lấy table theo ID
+    let table = document.getElementById("the-table");
+
+    // Tạo một tbody mới
+    let tbody = document.createElement("tbody");
+
+    // Lặp qua danh sách dữ liệu và thêm từng dòng vào tbody
+    for (let i = 0; i < listTodo.length; i++) {
+      const itemmm = listTodo[i]
+      let rowData = listTodo[i]; // rowData = { number: 1, todo: "Buy groceries for 1", status: "In progress" }
+
+      // Tạo một dòng mới
+      let row = tbody.insertRow();
+
+      // Thêm cột số
+      let cellNumber = row.insertCell(0);
+      cellNumber.innerHTML = i + 1;
+      cellNumber.classList.add("align-middle");
+
+      // Thêm cột todo
+      let cellTodo = row.insertCell(1);
+      cellTodo.innerHTML = rowData.todo;
+      cellTodo.classList.add("align-middle");
+      cellTodo.classList.add("todo-item-wrapper")
+
+      // Thêm cột status
+      let cellStatus = row.insertCell(2);
+      cellStatus.innerHTML = rowData.status;
+      cellStatus.classList.add("align-middle");
+      if (rowData.status === STATUS_TYPE.IN_PROGRESS) {
+        cellStatus.classList.add("in-progress");
+      } else if (rowData.status === STATUS_TYPE.PENDING) {
+        cellStatus.classList.add("pending");
+      }
+      // ${i}
+      // Thêm cột actions
+      let cellActions = row.insertCell(3);
+      // check ẩn hiện button tại đây
+      cellActions.innerHTML =
+        `<button type="button" class="btn btn-danger" onclick="handleDelete(${i})">Delete</button>` +
+        `<button type="button" class="btn btn-warning ms-1" onclick="handlePending(${i})">Pending</button>` +
+        `<button type="button" class="btn btn-secondary ms-1" onclick="handleCancel(${i})">Cancel</button>` +
+        `<button type="button" class="btn btn-success ms-1" onclick="handleFinished(${i})">Finished</button>` +
+        `<button type="button" class="btn btn-info ms-1" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="handleShowDetail(${i})">Detail</button>`;
+      cellActions.classList.add("align-middle");
+    }
+
+    // Nếu tbody chưa tồn tại, thêm tbody vào table
+    // if (!table.querySelector("tbody")) {
+    //   table.appendChild(tbody);
+    // }
+    table.appendChild(tbody);
+  }
+  initTable();
+
+
+  const handleDelete = (indexItem) => {
+    // filter (lọc) // index (tồn tại duy nhất)
+    let result = listTodo.filter((item, index) => indexItem !== index); // hàm filter lúc nào cũng sẽ trả về 1 mảng
+    listTodo = result;
+
+    // Tìm đến table và tìm đến thằng thẻ tbody
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody")
+    tbody.remove();
+
+    // Dùng hàm này để vẽ table
+    initTable();
+
+  }
+  const handleFinished = (indexItem) => {
+    listTodo[indexItem].status = STATUS_TYPE.FINISHED;
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody");
+    tbody.remove();
+    initTable();
+  }
+  const handlePending = (indexItem) => {
+    listTodo[indexItem].status = STATUS_TYPE.PENDING;
+
+    // Tìm đến table và tìm đến thẻ tbody
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody");
+    tbody.remove();
+
+    // Dùng hàm này để vẽ lại table với trạng thái đã được cập nhật
+    initTable();
+  }
+  const handleCancel = (indexItem) => {
+    listTodo[indexItem].status = STATUS_TYPE.CANCEL;
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody");
+    tbody.remove();
+    initTable();
+  }
+  const handleSave = () => {
+    let inputTaskDom = document.getElementById("form1");
+    let inputVal = inputTaskDom.value;
+    if (inputVal.trim() === '') {
+      alert("Vui lòng nhập thông tin task!");
+      return;
+    };
+    const taskObject = {
+      number: listTodo.length + 1,
+      todo: inputVal,
+      status: "In progress",
+    }
+    console.log(inputVal);
+
+    listTodo.push(taskObject);
+    // Tìm đến table và tìm đến thằng thẻ tbody
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody")
+    tbody.remove();
+    initTable();
+  }
+
+  const handleSearch = () => {
+    let inputTaskDom = document.getElementById("form1");
+    let inputVal = inputTaskDom.value;
+    if (inputVal.trim() === '') {
+      alert("Vui lòng nhập thông tin tìm kiếm");
+      return;
+    };
+    // Lọc tìm kiếm
+    console.log(inputVal);
+    let filteredTodo = listRaw.filter(item =>
+      item.todo.toLowerCase().includes(inputVal.toLowerCase().trim())
+    );
+    listTodo = filteredTodo;
+    // listTodo = list
+    console.log(filteredTodo);
+
+    // Tìm đến table và tìm đến thằng thẻ tbody
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody")
+    tbody.remove();
+    initTable();
+  }
+
+  const handleShowDetail = (indexItem) => {
+    let itemRow = listTodo[indexItem];
+    document.getElementById("detail-number-val").innerHTML = itemRow.number;
+    document.getElementById("detail-todoName-val").innerHTML = itemRow.todo;
+    document.getElementById("detail-status-val").innerHTML = itemRow.status;
+  }
+</script>
