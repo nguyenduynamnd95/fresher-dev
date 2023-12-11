@@ -180,29 +180,38 @@
   const handleDelete = (indexItem) => {
     // filter (lọc) // index (tồn tại duy nhất)
     let result = listTodo.filter((item, index) => indexItem !== index); // hàm filter lúc nào cũng sẽ trả về 1 mảng
+    
     listTodo = result;
-
     // Tìm đến table và tìm đến thằng thẻ tbody
     let table = document.getElementById("the-table");
     let tbody = table.querySelector("tbody")
     tbody.remove();
-
     // Dùng hàm này để vẽ table
     initTable();
 
   }
 
   const handleFinished = (indexItem) => {
-    let itemRow = listTodo[indexItem];
-    console.log('On Click Button Finished with item = {}: ', itemRow)
+    listTodo[indexItem].status = STATUS_TYPE.FINISHED;
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody");
+    tbody.remove();
+    initTable();   
   }
   const handlePending = (indexItem) => {
-    let itemRow = listTodo[indexItem];
-    console.log('On Click Button Pending with item = {}: ', itemRow);
+  listTodo[indexItem].status = STATUS_TYPE.PENDING;
+
+  let table = document.getElementById("the-table");
+  let tbody = table.querySelector("tbody");
+  tbody.remove();
+  initTable(); 
   }
   const handleCancel = (indexItem) => {
-    let itemRow = listTodo[indexItem];
-    console.log('On Click Button Cancel with item = {}: ', itemRow);
+    listTodo[indexItem].status = STATUS_TYPE.CANCEL;
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody");
+    tbody.remove();
+    initTable();   
   }
   const handleSave = () => {
     let inputTaskDom = document.getElementById("form1");
