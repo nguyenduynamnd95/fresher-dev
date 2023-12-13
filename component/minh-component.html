@@ -123,6 +123,8 @@
 
       let row = tbody.insertRow();
 
+      
+
       // Thêm cột số
       let cellNumber = row.insertCell(0);
       cellNumber.innerHTML = i + 1;
@@ -136,11 +138,25 @@
       let cellStatus = row.insertCell(2);
       cellStatus.innerHTML = rowData.status;
       cellStatus.classList.add("align-middle");
+      // if (rowData.status === STATUS_TYPE.IN_PROGRESS) {
+      //   cellStatus.classList.add("in-progress");
+      // } else if (rowData.status === STATUS_TYPE.PENDING) {
+      //   cellStatus.classList.add("pending");
+      // } else if (rowData.status === STATUS_TYPE.FINISHED) {
+      //   cellStatus.classList.add("finished");
+      // } else if (rowData.status === STATUS_TYPE.CANCEL) {
+      //   cellStatus.classList.add("cancelled");
+      // }
       if (rowData.status === STATUS_TYPE.IN_PROGRESS) {
-        cellStatus.classList.add("in-progress");
-      }else if (rowData.status === STATUS_TYPE.PENDING) {
-        cellStatus.classList.add("pending");
+        cellStatus.innerHTML = '<span class="in-progress">' + rowData.status + '</span>';
+      } else if (rowData.status === STATUS_TYPE.PENDING) {
+        cellStatus.innerHTML = '<span class="pending">' + rowData.status + '</span>';
+      } else if (rowData.status === STATUS_TYPE.FINISHED) {
+        cellStatus.innerHTML = '<span class="finished">' + rowData.status + '</span>';
+      } else if (rowData.status === STATUS_TYPE.CANCEL) {
+        cellStatus.innerHTML = '<span class="cancelled">' + rowData.status + '</span>';
       }
+
 
       let cellActions = row.insertCell(3);
       cellActions.innerHTML =
