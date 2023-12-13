@@ -89,17 +89,18 @@
 <script>
 
   let listTodo = [
-    { number: 1, todo: "Task 1", status: "In progress" },
-    { number: 2, todo: "Task 2", status: "Finished" },
+    { number: 1, todo: "Task 1", status: "Cancel" },
+    { number: 2, todo: "Task 2", status: "Pending" },
     { number: 3, todo: "Task 3", status: "Cancel" },
-    { number: 4, todo: "Task 4", status: "Pending" },
-    { number: 5, todo: "Task 5", status: "Pending" },
-    { number: 6, todo: "Task 6", status: "Cancel" },
-    { number: 7, todo: "Task 7", status: "Finished" },
+    { number: 4, todo: "Task 4", status: "Finished" },
+    { number: 5, todo: "Task 5", status: "In progress" },
+    { number: 6, todo: "Task 6", status: "In progress" },
+    { number: 7, todo: "Task 7", status: "In progress" },
     { number: 8, todo: "Task 8", status: "In progress" },
-    { number: 9, todo: "Task 9", status: "Cancel" },
+    { number: 9, todo: "Task 9", status: "In progress" },
   ];
-  let listTodoRaw = [...listTodo]; 
+  let listTodoRaw = [...listTodo];
+
   const STATUS_TYPE = {
     IN_PROGRESS: "In progress",
     FINISHED: "Finished",
@@ -140,12 +141,34 @@
       // Thêm cột status
       let cellStatus = row.insertCell(2);
       cellStatus.innerHTML = rowData.status;
+
+
       cellStatus.classList.add("align-middle");
       if (rowData.status === STATUS_TYPE.IN_PROGRESS) {
         cellStatus.classList.add("in-progress");
       } else if (rowData.status === STATUS_TYPE.PENDING) {
         cellStatus.classList.add("pending");
+
       }
+      console.log('rowData', rowData.status);
+      switch (rowData.status) {
+
+        case STATUS_TYPE.FINISHED:
+          cellStatus.style.color = "green";
+          break;
+        case STATUS_TYPE.CANCEL:
+          cellStatus.style.color = "gray";
+          break;
+        case STATUS_TYPE.PENDING:
+          cellStatus.style.color = "yellow";
+          break;
+        default:
+          cellStatus.style.color = "black";
+          break;
+      }
+
+
+
       // ${i}
       // Thêm cột actions
       let cellActions = row.insertCell(3);
@@ -191,7 +214,6 @@
   }
   const handlePending = (indexItem) => {
     listTodo[indexItem].status = STATUS_TYPE.PENDING;
-
     // Tìm đến table và tìm đến thẻ tbody
     let table = document.getElementById("the-table");
     let tbody = table.querySelector("tbody");
@@ -199,6 +221,7 @@
 
     // Dùng hàm này để vẽ lại table với trạng thái đã được cập nhật
     initTable();
+
   }
   const handleCancel = (indexItem) => {
     listTodo[indexItem].status = STATUS_TYPE.CANCEL;
