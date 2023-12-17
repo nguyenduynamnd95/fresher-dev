@@ -99,21 +99,30 @@
 
 <script>
 
-  let listTodo = [
-    { number: 1, todo: "Task 1", status: "In progress"},
-    { number: 2, todo: "Task 2", status: "Finished"},
-    { number: 3, todo: "Task 3", status: "Finished"},
-    { number: 4, todo: "Task 4", status: "Cancel"},
-    { number: 5, todo: "Task 5", status: "In progress"},
-    { number: 6, todo: "Task 6", status: "Cancel"},
-    { number: 7, todo: "Task 7", status: "In progress"},
-    { number: 8, todo: "Task 8", status: "Pending"},
-    // Thêm các phần tử khác tương tự
-  ]; 
 
+// let listTodo = [
+//     { number: 1, todo: "Task 1", status: "In progress"},
+//     { number: 2, todo: "Task 2", status: "In progress"},
+//     { number: 3, todo: "Task 3", status: "In progress"},
+//     { number: 4, todo: "Task 4", status: "Cancel"},
+//     { number: 5, todo: "Task 5", status: "In progress"},
+//     { number: 6, todo: "Task 6", status: "Cancel"},
+//     { number: 7, todo: "Task 7", status: "In progress"},
+//     { number: 8, todo: "Task 8", status: "Pending"},
+//   ];
+//   listTodo.setItem('listTodo', JSON.stringify(listTodo))
+  listTodo = JSON.parse(localStorage.getItem('listTodo'));
+  // console.log('listTodo: ', listTodo);
+  // sessionStorage.setItem('setSession', 'aaaa')
 
-  // let listTodoRaw = listTodo // shallow coppy 
-  let listTodoRaw = [...listTodo]; // deep coppy
+  // 1. đối số (parameter) truyền vào hàm là gì
+  // 2. hàm trả ra giá trị gì
+  
+
+  // let listTodoRaw = listTodo // shallow coppy // 8
+  let listTodoRaw = [...listTodo]; // deep coppy // 8
+
+  timeOUt();
   const STATUS_TYPE = {
     IN_PROGRESS: "In progress",
     FINISHED: "Finished",
@@ -182,6 +191,7 @@
     let result = listTodo.filter((item, index) => indexItem !== index); // hàm filter lúc nào cũng sẽ trả về 1 mảng
     
     listTodo = result;
+    localStorage.setItem('listTodo', JSON.stringify(listTodo));
     // Tìm đến table và tìm đến thằng thẻ tbody
     let table = document.getElementById("the-table");
     let tbody = table.querySelector("tbody")
@@ -227,6 +237,7 @@
     }
 
     listTodo.push(taskObject);
+    localStorage.setItem('listTodo', JSON.stringify(listTodo));
     // Tìm đến table và tìm đến thằng thẻ tbody
     let table = document.getElementById("the-table");
     let tbody = table.querySelector("tbody")
@@ -266,9 +277,17 @@
     console.log('Search');
   }
 
-  // const handleChange = (event) => {
-  //   console.log(event.target.value);
-  // }
+  const handleChange = (event) => {
+    const isA = false;
+    console.log(event.target.value);
+  }
+  const demoGit = () => {
+    console.log('aaaaaaa');
+  }
+
+  const handleSearch2 = () => {
+    console.log('Search');
+  }
 
 </script> 
 
@@ -356,11 +375,24 @@ let: không có cơ chế hoisting, phạm vi của biến được bắt đầu
 
 1.Phân biệt 3 cách khai báo biến trong js: var, let, const? 
 Có thay đổi được giá trị của thuộc tính bên trong object khi object đó được khai báo bằng const hay không?
-2.Phân biệt so sánh  == và ===
+2.Phân biệt so sánh = == và ===
 3.Phân biệt i++ và ++i
 4.Hãy nêu các kiểu dữ liệu trong js
 5.Hãy phân biệt ES5 và ES6
-
+6.So sánh Local storage, session storage, cookie
+- Local storage, session storage: giống cơ sở dữ liệu thu nhỏ (Database). Dữ liệu lưu dưới dạng key-value
+- Local storage: tồn tại cho đến khi bị xóa đi, không bị xóa khi đóng trình duyệt hoặc đóng tab
+- Session storage: dữ liệu sẽ bị xóa khi đóng tab hoặc đóng trình duyệt
+- Cookie: là 1 file: Request Header:
 ====================================================================
+
+
+
+
+let a = 1;
+let b = 1;
+a == b; // true
+a === b: // false: 1 == 1 // true number number / true
+true  true => true;
 
 -->

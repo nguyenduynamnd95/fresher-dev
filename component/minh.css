@@ -1,45 +1,16 @@
-.first-part {
-
-    border: 1px solid #d5d2d2;
-    width: 500px;
-}
-
-.title{
-    font-weight: 600;
-    color: white;
-    background-color: #389de1;
-    padding-bottom: 13px;
-    padding-top: 13px;
-    text-align: center;
-    font-size: 20px;
-}
-
-.form-content {
-    padding: 10px 30px 20px 30px;
-}
-
-
-
-.input-wrapper {
-    margin-top: 5px;
-    margin-bottom: 10px;
-    width: 97%;
-    height: 25px;
-    border: 1px solid #c9c9c9;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.bt-wrapper {
-    border-radius: 5px;
-    padding: 7px;
-    border: 1px solid #73b9df;
-    background-color: #73b9df;
-}
-
-
-.end {
-    margin-bottom: 10px;
-}
+.in-progress {
+    color: blue;!important
+  }
+  
+  .pending {
+    color: yellow;!important
+  }
+  
+  .finished {
+    color: green;!important
+  }
+  
+  .cancelled {
+    color: #6c757d;!important
+  }
+  
