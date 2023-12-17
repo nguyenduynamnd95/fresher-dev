@@ -35,6 +35,10 @@
                   <button class="btn btn-primary" onclick="handleSearch()">Search</button>
                 </div>
 
+                <div class="col-12">
+                  <button class="btn btn-primary" onclick="handlesetTimout()">setTimeout</button>
+                </div>
+
               </div>
 
               <table class="table mb-4" id="the-table">
@@ -72,6 +76,7 @@
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -281,5 +286,12 @@
     document.getElementById("detail-number-val").innerHTML = itemRow.number;
     document.getElementById("detail-todoName-val").innerHTML = itemRow.todo;
     document.getElementById("detail-status-val").innerHTML = itemRow.status;
+  }
+
+  function handlesetTimout() {
+    setTimeout(() => {
+      console.log("Hello world");
+      alert("Hello world");
+    }, 3000);
   }
 </script>
