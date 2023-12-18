@@ -386,7 +386,27 @@ Có thay đổi được giá trị của thuộc tính bên trong object khi ob
 - Cookie: là 1 file: Request Header:
 ====================================================================
 
+======================= Các mã code hay gặp khi call api ===========
 
+// get: được dùng để gọi lên api và lấy dữ liệu về
+// POST: body ({}, []): {input: "aaaaa"}: tạo mới dữ liệu
+// {name: "", age: ""} => {name: "", address: ""}
+// PUT: update dữ liệu 
+// DELETE: xóa dữ liệu
+
+ 200, 201: đã get thành công hoặc put, post delete thành công
+ 404: not found:
+ 401: chưa login
+ 400: bad request: param truyền lên sai:
+ 405 Method Not Allowed
+
+ 2xx: Thành công
+ 4xx: Lỗi liên quan đến người dùng
+ 5xx: lỗi liên quan đến server: 501, 502, 500, 504 Gateway Timeout
+
+ cross orgin resource sharing: 
+ CORS: cấp quyền cho những ai được gọi đến nó
+=====================================================================
 
 
 let a = 1;
