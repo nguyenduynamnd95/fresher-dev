@@ -30,6 +30,10 @@
                 <div class="col-12">
                   <button class="btn btn-primary" onclick="handleSave()">Save</button>
                 </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" onclick="handleDelayedSearch()">Delayed Search</button>
+                </div>
+                
 
               </div>
               <select class="form-select" style="width: 300px; margin-bottom: 10px" aria-label="Choose Status" onchange="handleOnChangeStatus(event)">
@@ -121,7 +125,7 @@
       const itemmm = listTodo[i]
       let rowData = listTodo[i]; 
 
-      let row = tbody.insertRow();
+      let row = tbody.insertRow();///////
 
       
 
@@ -138,15 +142,6 @@
       let cellStatus = row.insertCell(2);
       cellStatus.innerHTML = rowData.status;
       cellStatus.classList.add("align-middle");
-      // if (rowData.status === STATUS_TYPE.IN_PROGRESS) {
-      //   cellStatus.classList.add("in-progress");
-      // } else if (rowData.status === STATUS_TYPE.PENDING) {
-      //   cellStatus.classList.add("pending");
-      // } else if (rowData.status === STATUS_TYPE.FINISHED) {
-      //   cellStatus.classList.add("finished");
-      // } else if (rowData.status === STATUS_TYPE.CANCEL) {
-      //   cellStatus.classList.add("cancelled");
-      // }
       if (rowData.status === STATUS_TYPE.IN_PROGRESS) {
         cellStatus.innerHTML = '<span class="in-progress">' + rowData.status + '</span>';
       } else if (rowData.status === STATUS_TYPE.PENDING) {
@@ -260,5 +255,25 @@
     initTable();
 }
 document.getElementById("form1").addEventListener("input", handleSearch);
+const handleDelayedSearch = () => {
+  let searchInput = document.getElementById("form1").value.toLowerCase();
+  
+  // Clear the previous timeout (if any)
+  clearTimeout(timeoutId);
+  
+  // Set a new timeout to execute the search after 2 seconds
+  const timeoutId = setTimeout(() => {
+    let filteredList = listTodoRaw.filter(item => {
+      return item.todo.toLowerCase().includes(searchInput);
+    });
+    listTodo = filteredList;
+    let table = document.getElementById("the-table");
+    let tbody = table.querySelector("tbody");
+    tbody.remove();
+    initTable();
+  }, 2000);
+}
+
  
 </script>
+
